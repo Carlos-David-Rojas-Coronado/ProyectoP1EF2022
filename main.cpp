@@ -2,6 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <conio.h>
+#include<cstdlib>
+#include<iomanip>
+#include <iostream>
+#include <ctime>
+#include <vector>
+#include <fstream>
 
 #define MAX 80
 #define ARCHIVO_USUARIOS "usuarios.dat"
@@ -10,7 +16,15 @@
 #define LONGITUD 5
 #define MAX_INTENTOS 3
 
-/* Estructura de cuentas de usuario */
+using namespace std;
+
+void menuIniciarSesion();
+int leerLinea(char *cad, int n);
+void leerClave(char *password);
+char logear(char nombreUsuario[], char password[]);
+char linea[MAX];
+void menuSistema();
+
 struct usuario {
 	char nombre[MAX];
 	char password[MAX];
@@ -18,136 +32,11 @@ struct usuario {
 
 typedef struct usuario Usuario;
 
-/* Funciones de menú */
-void menuInicial();
-void menuListarUsuarios();
-void menuRegistrarUsuario();
-void menuIniciarSesion();
-void menuSistema();
 
-/* Funciones que manipulan el archivo de usuarios */
-char insertarUsuario(Usuario usuario);
-char existeUsuario(char nombreUsuario[], Usuario *usuario);
-Usuario *obtenerUsuarios(int *);
-char logear(char nombreUsuario[], char password[]);
 
-int leerLinea(char *cad, int n);
-void leerClave(char *password);
-
-char linea[MAX];
 int main() {
-	menuInicial();
+	menuIniciarSesion();
 	return 0;
-}
-void menuInicial() {
-	char repite = 1;
-	int opcion = -1;
-
-	do {
-		system("cls");
-		printf("\n\t\t\tMENU INICIAL\n");
-		printf("\t\t\t============\n");
-		printf("\n\t\t[1]. Ver usuarios registrados\n");
-		printf("\t\t[2]. Registrar usuario nuevo\n");
-		printf("\t\t[3]. Ingresar al sistema\n");
-		printf("\t\t[0]. Salir\n");
-		printf("\n\t\tIngrese su opcion: [ ]\b\b");
-		leerLinea(linea, MAX);
-		sscanf(linea, "%d", &opcion);
-
-		switch (opcion) {
-			case 1:
-				menuListarUsuarios();
-				break;
-
-			case 2:
-				menuRegistrarUsuario();
-				break;
-
-			case 3:
-				menuIniciarSesion();
-				break;
-
-			case 0:
-				repite = 0;
-				break;
-		}
-
-	} while (repite == 1);
-}
-
-void menuRegistrarUsuario() {
-	Usuario usuario;
-	char nombreUsuario[MAX];
-	char respuesta[MAX];
-	char repite = 1;
-
-	do {
-		system("cls");
-		printf("\n\t\t\tREGISTRAR USUARIO\n");
-		printf("\t\t\t=================\n");
-		printf("\n\tIngrese nombre de usuario: ");
-		leerLinea(linea, MAX);
-		sscanf(linea, "%s", nombreUsuario);
-
-		/* Se verifica que el nombre de usuario no exista */
-		if (!existeUsuario(nombreUsuario, &usuario)) {
-			strcpy(usuario.nombre, nombreUsuario);
-
-			printf("\tIngrese la clave: ");
-			leerLinea(usuario.password, MAX);
-
-			/* Se inserta el usuario en el archivo de usuarios */
-			if (insertarUsuario(usuario)) {
-				printf("\n\tEl usuario fue registrado satisfactoriamente!\n");
-
-			} else {
-				printf("\n\tOcurrio un error al registrar el usuario\n");
-				printf("\nInténtelo mas tarde\n");
-			}
-		} else {
-			printf("\n\tEl usuario \"%s\" ya ha sido registrado previamente\n", usuario.nombre);
-			printf("\tNo puede registrar dos usuarios con el mismo nombre de usuario.\n");
-		}
-
-		printf("\n\tDesea seguir registrando usuarios? [S/N]: ");
-		leerLinea(respuesta, MAX);
-
-		if (!(strcmp(respuesta, "S") == 0 || strcmp(respuesta, "s") == 0)) {
-			repite = 0;
-		}
-
-	} while (repite == 1);
-}
-
-void menuListarUsuarios() {
-	int numeroUsuarios = 0;
-	Usuario *usuarios;
-	int i;
-
-	system("cls");
-	usuarios = obtenerUsuarios(&numeroUsuarios); /* Retorna un vector dinámico de usuarios */
-
-	if (numeroUsuarios == 0) {
-		printf("\n\tNo existe ningun usuario registrado!\n");
-
-	} else {
-		printf("\n\t\t    ==> LISTADO DE USUARIOS REGISTRADOS <==\n");
-		printf(" ------------------------------------------------------------------------------\n");
-		printf("%10s%25s%25s\n", "#", "NOMBRE", "PASSWORD");
-		printf(" ------------------------------------------------------------------------------\n");
-
-		/* Se recorre el vector dinámico de productos */
-		for (i = 0; i < numeroUsuarios; i++) {
-			printf("%10d%25s%25s\n", (i + 1), usuarios[i].nombre, usuarios[i].password);
-		}
-		printf(" ------------------------------------------------------------------------------\n");
-	}
-
-	// Se libera la memoria asignada al vector dinámico
-	free(usuarios);
-	usuarios = NULL;
-	getchar();
 }
 
 void menuIniciarSesion() {
@@ -184,4 +73,113 @@ void menuIniciarSesion() {
 		printf("\n\tHa sobrepasado el numero maximo de intentos permitidos\n");
 		getchar();
 	}
+}
+
+
+int leerLinea(char *cad, int n)
+{
+	int i, c;
+
+	/* 1 COMPROBACIÓN DE DATOS INICIALES EN EL BUFFER */
+	c = getchar();
+	if (c == EOF) {
+		cad[0] = '\0';
+		return 0;
+	}
+
+	if (c == '\n') {
+		i = 0;
+	} else {
+		cad[0] = c;
+		i = 1;
+	}
+
+	/* 2. LECTURA DE LA CADENA */
+	for (; i < n - 1 && (c = getchar()) != EOF && c != '\n'; i++) {
+		cad[i] = c;
+	}
+	cad[i] = '\0';
+
+	/*3. LIMPIEZA DEL BUFFER */
+	if (c != '\n' && c != EOF) /* es un caracter */
+		while ((c = getchar()) != '\n' && c != EOF);
+
+	return 1;
+}
+
+
+char logear(char nombreUsuario[], char password[]) {
+	FILE *archivo;
+	char logeoExitoso;
+	Usuario usuario;
+
+	/* Abre el archivo en modo de lectura */
+	archivo = fopen(ARCHIVO_USUARIOS, "rb");
+
+	if (archivo == NULL) {
+		logeoExitoso = 0;
+
+	} else {
+		logeoExitoso = 0;
+
+		/* Lee secuencialmente del archivo de usuarios */
+		fread(&usuario, sizeof(usuario), 1, archivo);
+		while (!feof(archivo)) {
+			if (strcmp(usuario.nombre, nombreUsuario) == 0 && strcmp(usuario.password, password) == 0) {
+				/* Encuentra un usuario del archivo con el nombre de usuario y password buscado */
+				logeoExitoso = 1;
+
+				break;
+			}
+
+			fread(&usuario, sizeof(usuario), 1, archivo);
+		}
+
+		/* Cierra el archivo*/
+		fclose(archivo);
+	}
+
+	return logeoExitoso;
+}
+
+
+
+
+
+
+void leerClave(char *password) {
+	char caracter;
+	int i = 0;
+
+	while (caracter = getch()) {
+		if (caracter == TECLA_ENTER) {
+			password[i] = '\0';
+			break;
+
+		} else if (caracter == TECLA_BACKSPACE) {
+			if (i > 0) {
+				i--;
+				printf("\b \b");
+			}
+
+		} else {
+			if (i < MAX) {
+				printf("*");
+				password[i] = caracter;
+				i++;
+			}
+		}
+	}
+}
+
+void menuSistema() {
+	system("cls");
+	printf("\n     ======================================================================\n");
+	printf("\t\t\t     BIENVENIDO AL SISTEMA\n");
+	printf("\t\t    Sistema de La Coorporacion educativa\n");
+	printf("\t\t    Programacion 2022 | Carlo David Rojas coronado\n");
+	printf("     ======================================================================\n");
+
+
+	getchar();
 }
