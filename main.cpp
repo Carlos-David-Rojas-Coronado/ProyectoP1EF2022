@@ -57,6 +57,7 @@ class persona
 		void menu();
 		void insert();
 		void sede();
+		void reporte;
 		void carrera();
 		void cursos();
 		void creararchivo();
@@ -455,10 +456,11 @@ void persona::menu()
 	cout<<"\t\t\t 12. Mostrar Cursos"<<endl;
 	cout<<"\t\t\t 13. Ingrese Carreras"<<endl;
 	cout<<"\t\t\t 14. Mostrar Carreras"<<endl;
-	cout<<"\t\t\t 15. Exit"<<endl;
+	cout<<"\t\t\t 15. Realizar Reporte"<<endl;
+	cout<<"\t\t\t 16. Exit"<<endl;
 
 	cout<<"\t\t\t-------------------------------"<<endl;
-	cout<<"\t\t\tOpcion a escoger:[1/2/3/4/5/6/7/8/9/10/11/12/13/14]"<<endl;
+	cout<<"\t\t\tOpcion a escoger:[1/2/3/4/5/6/7/8/9/10/11/12/13/14/15]"<<endl;
 	cout<<"\t\t\t-------------------------------"<<endl;
 	cout<<"Ingresa tu Opcion: ";
     cin>>choice;
@@ -512,7 +514,10 @@ void persona::menu()
     case 14:
         display5();
         break;
-	case 15:
+    case 15:
+        reporte();
+        break;
+	case 16:
 		exit(0);
 	default:
 		cout<<"\n\t\t\t Opcion invalida...Por favor prueba otra vez..";
@@ -934,6 +939,33 @@ void persona::display5()
 		}
 	}
 	file.close();
+}
+void persona::reporte()
+{
+	system("cls");
+	fstream file;
+	cout<<"\n------------------------------------------------------------------------------------------------------------------------";
+	cout<<"\n-------------------------------------------------Agregar Reporte Personal---------------------------------------------"<<endl;
+	cout<<"\t\t\tIngresa Id Del Reportado         : ";
+	cin>>id;
+	cout<<"\t\t\tIngresa Nombre Reportado    : ";
+	cin>>name;
+	cout<<"\t\t\tIngresa Numero telefonico  : ";
+	cin>>phone;
+	cout<<"\t\t\tIngresa sede el Reportado: ";
+	cin>>college;
+	cout<<"\t\t\tIngresa Direccion Facultad  : ";
+	cin>>address;
+	file.open("ParticipantRecord.txt", ios::app | ios::out);
+	file<<std::left<<std::setw(15)<< id <<std::left<<std::setw(15)<< name <<std::left<<std::setw(15)<< phone <<std::left<<std::setw(15)<< college <<std::left<<std::setw(15)<< address << "\n";
+	file.close();
+	hora();
+	string filename("reportes.txt");
+	ofstream file_out;
+	file_out.open("bitacora.txt", std::ios_base::app);
+	file_out <<"el ultimo usuario logueado ingreso un nuevo registro con id:  "<< id;
+
+
 }
 char hora()
 {
