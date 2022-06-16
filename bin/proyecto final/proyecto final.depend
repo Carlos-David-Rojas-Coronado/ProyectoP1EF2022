@@ -1,0 +1,140 @@
+# depslib dependency file v1.0
+1653261122 source:c:\proyecto progra\trabajogrupal\proyecto definitivo1\proyecto.cpp
+	<iostream>
+	"MenuINI.h"
+
+1653261100 c:\proyecto progra\trabajogrupal\proyecto definitivo1\menuini.h
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<iostream>
+	"leerLinea.h"
+	"gotoxy.h"
+	"menuListarUsuarios.h"
+	"menuRegistrarUsuario.h"
+	"menuIniciarSesion.h"
+
+1653009004 c:\proyecto progra\trabajogrupal\proyecto definitivo1\leerlinea.h
+	<iostream>
+	<conio.h>
+
+1653022595 c:\proyecto progra\trabajogrupal\proyecto definitivo1\gotoxy.h
+	<windows.h>
+	<stdio.h>
+
+1653023980 c:\proyecto progra\trabajogrupal\proyecto definitivo1\menulistarusuarios.h
+	<stdio.h>
+	<stdlib.h>
+	"obtenerUsuarios.h"
+
+1653024181 c:\proyecto progra\trabajogrupal\proyecto definitivo1\obtenerusuarios.h
+	<stdio.h>
+
+1653026169 c:\proyecto progra\trabajogrupal\proyecto definitivo1\menuregistrarusuario.h
+	"existeUsuario.h"
+	"insertarUsuario.h"
+	"hora.h"
+
+1653024822 c:\proyecto progra\trabajogrupal\proyecto definitivo1\existeusuario.h
+
+1653024874 c:\proyecto progra\trabajogrupal\proyecto definitivo1\insertarusuario.h
+
+1653025511 c:\proyecto progra\trabajogrupal\proyecto definitivo1\hora.h
+	<ctime>
+	<vector>
+	<iostream>
+	<fstream>
+
+1653026636 c:\proyecto progra\trabajogrupal\proyecto definitivo1\menuiniciarsesion.h
+	"leerClave.h"
+	"loguear.h"
+	"menuSistema.h"
+
+1653026472 c:\proyecto progra\trabajogrupal\proyecto definitivo1\leerclave.h
+
+1653026524 c:\proyecto progra\trabajogrupal\proyecto definitivo1\loguear.h
+
+1653357722 c:\proyecto progra\trabajogrupal\proyecto definitivo1\menusistema.h
+	"persona.h"
+
+1653357692 c:\proyecto progra\trabajogrupal\proyecto definitivo1\persona.h
+
+1653368325 source:c:\proyecto progra\trabajogrupal\nuevo metodo\proyecto final\proyecto.cpp
+	"MenuINI.h"
+
+1654058105 c:\proyecto progra\trabajogrupal\nuevo metodo\proyecto final\menuini.h
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<iostream>
+	"leerLinea.h"
+	"gotoxy.h"
+	"menuListarUsuarios.h"
+	"menuRegistrarUsuario.h"
+	"menuIniciarSesion.h"
+
+1654058105 c:\proyecto progra\trabajogrupal\nuevo metodo\proyecto final\leerlinea.h
+	<iostream>
+	<conio.h>
+
+1654058105 c:\proyecto progra\trabajogrupal\nuevo metodo\proyecto final\gotoxy.h
+	<windows.h>
+	<stdio.h>
+
+1654058105 c:\proyecto progra\trabajogrupal\nuevo metodo\proyecto final\menulistarusuarios.h
+	<stdio.h>
+	<stdlib.h>
+	"obtenerUsuarios.h"
+
+1654058105 c:\proyecto progra\trabajogrupal\nuevo metodo\proyecto final\obtenerusuarios.h
+	<stdio.h>
+
+1654058092 c:\proyecto progra\trabajogrupal\nuevo metodo\proyecto final\menuregistrarusuario.h
+	"existeUsuario.h"
+	"insertarUsuario.h"
+	"hora.h"
+
+1654058105 c:\proyecto progra\trabajogrupal\nuevo metodo\proyecto final\existeusuario.h
+
+1654058105 c:\proyecto progra\trabajogrupal\nuevo metodo\proyecto final\insertarusuario.h
+
+1654058105 c:\proyecto progra\trabajogrupal\nuevo metodo\proyecto final\hora.h
+	<ctime>
+	<vector>
+	<iostream>
+	<fstream>
+
+1654058105 c:\proyecto progra\trabajogrupal\nuevo metodo\proyecto final\menuiniciarsesion.h
+	"leerClave.h"
+	"loguear.h"
+	"menuSistema.h"
+
+1654058105 c:\proyecto progra\trabajogrupal\nuevo metodo\proyecto final\leerclave.h
+
+1654058105 c:\proyecto progra\trabajogrupal\nuevo metodo\proyecto final\loguear.h
+
+1654058105 c:\proyecto progra\trabajogrupal\nuevo metodo\proyecto final\menusistema.h
+	"persona.h"
+
+1654058105 c:\proyecto progra\trabajogrupal\nuevo metodo\proyecto final\persona.h
+	<iomanip>
+	"sueldos.h"
+	"Puestos.h"
+	"niveldeestudio.h"
+
+1654058105 c:\proyecto progra\trabajogrupal\nuevo metodo\proyecto final\sueldos.h
+	<iostream>
+	<string.h>
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+
+1654058105 c:\proyecto progra\trabajogrupal\nuevo metodo\proyecto final\puestos.h
+	<iostream>
+	<stdio.h>
+	<string.h>
+	<windows.h>
+
+1654058105 c:\proyecto progra\trabajogrupal\nuevo metodo\proyecto final\niveldeestudio.h
+
